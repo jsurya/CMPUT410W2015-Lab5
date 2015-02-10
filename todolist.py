@@ -51,17 +51,15 @@ def logout():
 def delete():
 	if not session.get('logged_in'):
 		abort(401)		# authenitication failed
-	category = request.form['category']
-	priority = request.form['priority']
-	description = request.form['description']
-	print category, priority, description
-	removeTask(category, priority, description)
+
+	if request.method == 'POST':
+		for task in request.form:
+			removeTask(task)
 	flash('Task deleted')
 	return redirect(url_for('task'))
 	
-def removeTask(category, priority, description):
-	query_db('DELETE FROM tasks WHERE category = ? AND priority = ? AND description = ?',
-	 [category, priority, description], one = True)
+def removeTask(task):
+	query_db('DELETE FROM tasks WHERE task_id = ?', [task], one = True)
 	get_db().commit()
 
 def addTask(category, priority, description):

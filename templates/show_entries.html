@@ -36,7 +36,7 @@
 					<input type = "hidden" name = category value = "{{ task['category'] }}" >
 					<input type = "hidden" name = priority value = "{{ task['priority'] }}" >
 					<input type = "hidden" name = description value = "{{ task['description'] }}" >
-					<input type = submit value = "Delete" >
+					<input type = submit value = "Delete" name = "{{ task['task_id'] }}">
 				</form>
 				{% endif %}
 				</td>
